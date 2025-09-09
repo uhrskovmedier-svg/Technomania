@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Technomania Marketing Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#00c0f3; --teal:#49c0b6; --yellow:#ffd700; --green:#00ff99;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:#eaeaea; background: radial-gradient(1200px 800px at 20% -10%, #0f2b30 0%, #0a0a0a 40%, #070707 100%);
+}
+.wrap{
+  max-width:1400px;
+  margin:40px auto;
+  padding:0 16px;
+  text-align:center;
+}
+h1{
+  font-weight:800; font-size:84px; margin:0 0 16px;
+  background:linear-gradient(135deg,var(--cyan),var(--teal));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.muted{
+  font-size:48px; font-weight:400; opacity:.8; margin:0 0 20px;
+}
+.logo-main{
+  width:66%; max-width:800px; margin:0 auto 40px; display:block;
+}
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:0px;
+  justify-items:center;
+  align-items:start;
+}
+.card{
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px; padding:20px; backdrop-filter: blur(6px);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  width:100%;
+  max-width:500px;
+}
+label{display:block; font-weight:500; margin:12px 0 6px; text-align:left}
+input[type="text"]{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.2); background:rgba(0,0,0,.3); color:#fff}
+.btns{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0}
+button{
+  appearance:none; border:1px solid rgba(255,255,255,.25); color:#fff; background:transparent;
+  padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer;
+}
+button.primary{
+  border:none;
+  background:linear-gradient(135deg,#704bd3,#24b0be); /* OPdateret gradient her */
+  color:#fff; font-weight:500; padding:14px 20px; font-size:18px;
+  border-radius:16px;
+  cursor:pointer;
+  margin-top:20px;
+  width:100%;
+}
+button.active{background:linear-gradient(135deg,var(--teal),var(--cyan)); border:none}
+.preview{
+  position:relative;
+  width:458px;
+  height:600px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.15);
+  background:#0c0c0c;
+}
+.pattern{position:absolute; inset:0; opacity:.10;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, var(--cyan) 35px, var(--cyan) 37px);}
+.name{font-weight:400; font-size:24px; margin:0; font-family:Montserrat;}
+.role{font-weight:400; font-size:18px; margin:6px 0 0; font-family:Montserrat;}
+/* JUSTERINGER TIL HVERT TEMPLATE */
+#preview.attending .nameblock {
+  position: absolute;
+  left: 11%;
+  top: 33%;
+  text-align: left;
+  color: #fff;
+}
+#preview.speaking .nameblock {
+  position: absolute;
+  left: 11%;
+  top: 35%;
+  text-align: left;
+  color: #fff;
+}
+#preview.exhibiting .nameblock {
+  position: absolute;
+  left: 10%;
+  top: 34%;
+  text-align: left;
+  color: #fff;
+}
+
+/* Stil for overlay billeder */
+.overlay-container {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: grab; /* Gør containeren flytbar med musen */
+}
+
+.overlay-image {
+  position: absolute;
+  transform-origin: center center;
+}
+
+/* Stil for upload knappen */
+.upload-button {
+  border:none;
+  background:linear-gradient(135deg,#49c0b6,#00c0f3);
+  color:#fff; font-weight:500; padding:14px 20px; font-size:18px;
+  border-radius:16px;
+  cursor:pointer;
+  margin-top:20px;
+  width:100%;
+  display: block;
+  text-align: center;
+}
+
+.overlay-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.overlay-controls label {
+  text-align: left;
+  font-weight: 400;
+  font-size: 14px;
+}
+/* Style for sliders */
+.overlay-controls input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+.overlay-controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg,#49c0b6,#00c0f3);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+.overlay-controls input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg,#49c0b6,#00c0f3);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Technomania 2025</h1>
+  <p class="muted">Create your own Technomania marketing kit</p>
+  <img src="https://uhrskovmedier-svg.github.io/Technomania/Logo%20TM.jpg" class="logo-main" alt="Technomania Logo">
+
+  <div class="grid">
+    <div class="card">
+      <h2>Customize</h2>
+      <label for="name">Your Name</label>
+      <input id="name" type="text" placeholder="Your Name" />
+      <label for="title">Title / Company</label>
+      <input id="title" type="text" placeholder="CTO, FutureTech..." />
+
+      <div class="spacer"></div>
+      <label>Template</label>
+      <div class="btns">
+        <button class="active" data-template="attending">attending</button>
+        <button data-template="speaking">speaking</button>
+        <button data-template="exhibiting">exhibiting</button>
+      </div>
+      
+      <label for="imageUpload" class="upload-button">
+        Upload Billede
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+      </label>
+      
+      <div id="overlayControls" class="overlay-controls" style="display: none;">
+        <label for="zoomSlider">Zoom</label>
+        <input type="range" id="zoomSlider" min="50" max="200" value="100">
+        <label for="panXSlider">Horisontal placering</label>
+        <input type="range" id="panXSlider" min="-50" max="50" value="0">
+        <label for="panYSlider">Vertikal placering</label>
+        <input type="range" id="panYSlider" min="-50" max="50" value="0">
+      </div>
+
+      <button id="download" class="primary">Download Marketing Kit</button>
+    </div>
+
+    <div class="card">
+      <h2>Preview</h2>
+      <div id="preview" class="preview">
+        <div class="pattern"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="c" width="1200" height="1500" style="display:none"></canvas>
+
+<script>
+const state = { 
+  name: "", 
+  title: "", 
+  template: "attending", 
+  overlayImage: null,
+  overlayScale: 100,
+  overlayOffsetX: 0,
+  overlayOffsetY: 0
+};
+
+const templateLinks = {
+  attending: "https://uhrskovmedier-svg.github.io/Technomania/attending.png",
+  speaking:  "https://uhrskovmedier-svg.github.io/Technomania/speaking.png",
+  exhibiting:"https://uhrskovmedier-svg.github.io/Technomania/exhibiting.png"
+};
+
+// HER KAN DU JUSTERE MÅLENE FOR PREVIEW-BILLEDE
+const previewOverlayPositions = {
+  attending: { left: 519, top: 780, width: 575, height: 590, borderRadius: 20 },
+  speaking:  { left: 519, top: 780, width: 575, height: 590, borderRadius: 20 },
+  exhibiting:{ left: 519, top: 780, width: 575, height: 590, borderRadius: 20 }
+};
+
+// HER KAN DU JUSTERE MÅLENE FOR DOWNLOAD-BILLEDE
+const downloadOverlayPositions = {
+  attending: { left: 525, top: 783, width: 550, height: 592, borderRadius: 20 },
+  speaking:  { left: 525, top: 783, width: 550, height: 592, borderRadius: 20 },
+  exhibiting:{ left: 525, top: 783, width: 550, height: 592, borderRadius: 20 }
+};
+
+const textDownloadPositions = {
+  attending: { left: 0.11, top: 0.33 },
+  speaking:  { left: 0.11, top: 0.35 },
+  exhibiting:{ left: 0.10, top: 0.34 }
+};
+
+const nameEl = document.getElementById('name');
+const titleEl = document.getElementById('title');
+const previewEl = document.getElementById('preview');
+const tmplBtns = Array.from(document.querySelectorAll('[data-template]'));
+const downloadBtn = document.getElementById('download');
+const imageUploadEl = document.getElementById('imageUpload');
+const overlayControlsEl = document.getElementById('overlayControls');
+const zoomSlider = document.getElementById('zoomSlider');
+const panXSlider = document.getElementById('panXSlider');
+const panYSlider = document.getElementById('panYSlider');
+
+function escapeHtml(s){ return s.replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function setActiveTemplateButton(){ tmplBtns.forEach(b=>b.classList.toggle('active', b.dataset.template===state.template)); }
+
+function renderPreview(){
+  const nameHtml = state.name ? `<div class="name">${escapeHtml(state.name)}</div>` : "";
+  const roleHtml = state.title ? `<div class="role">${escapeHtml(state.title)}</div>` : "";
+  
+  const previewImage = new Image();
+  previewImage.crossOrigin = "anonymous";
+  previewImage.src = templateLinks[state.template];
+  previewImage.style.cssText = "width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;";
+
+  previewImage.onload = () => {
+    previewEl.innerHTML = `<div class="pattern"></div>${previewImage.outerHTML}<div class="nameblock">${nameHtml}${roleHtml}</div>`;
+    previewEl.className = `preview ${state.template}`;
+    
+    if (state.overlayImage) {
+      overlayControlsEl.style.display = 'flex';
+      
+      const overlayContainer = document.createElement('div');
+      overlayContainer.className = 'overlay-container';
+      
+      const overlayImg = document.createElement('img');
+      overlayImg.src = state.overlayImage;
+      overlayImg.className = 'overlay-image';
+      
+      const pos = previewOverlayPositions[state.template];
+      const previewRefWidth = 458; 
+      const previewRefHeight = 600; 
+      const canvasRefWidth = 1200; 
+      const canvasRefHeight = 1500; 
+
+      const leftPx = (pos.left / canvasRefWidth) * previewRefWidth;
+      const topPx = (pos.top / canvasRefHeight) * previewRefHeight;
+      const widthPx = (pos.width / canvasRefWidth) * previewRefWidth;
+      const heightPx = (pos.height / canvasRefHeight) * previewRefHeight;
+      const borderRadiusPx = (pos.borderRadius / canvasRefWidth) * previewRefWidth;
+      
+      overlayContainer.style.left = `${leftPx}px`;
+      overlayContainer.style.top = `${topPx}px`;
+      overlayContainer.style.width = `${widthPx}px`;
+      overlayContainer.style.height = `${heightPx}px`;
+      overlayContainer.style.borderRadius = `${borderRadiusPx}px`;
+
+      const tempImg = new Image();
+      tempImg.onload = () => {
+        const aspectRatio = tempImg.naturalWidth / tempImg.naturalHeight;
+        
+        let imgWidth, imgHeight;
+        if (widthPx / heightPx > aspectRatio) {
+          imgHeight = heightPx;
+          imgWidth = heightPx * aspectRatio;
+        } else {
+          imgWidth = widthPx;
+          imgHeight = widthPx / aspectRatio;
+        }
+
+        const scaleFactor = state.overlayScale / 100;
+        imgWidth *= scaleFactor;
+        imgHeight *= scaleFactor;
+        
+        const panX = state.overlayOffsetX / 100;
+        const panY = state.overlayOffsetY / 100;
+        
+        const panXpx = panX * widthPx;
+        const panYpx = panY * heightPx;
+
+        overlayImg.style.width = `${imgWidth}px`;
+        overlayImg.style.height = `${imgHeight}px`;
+        overlayImg.style.left = `50%`;
+        overlayImg.style.top = `50%`;
+        overlayImg.style.transform = `translate(calc(-50% + ${panXpx}px), calc(-50% + ${panYpx}px))`
+      };
+      tempImg.src = state.overlayImage;
+      
+      overlayContainer.appendChild(overlayImg);
+      previewEl.appendChild(overlayContainer);
+
+    } else {
+      overlayControlsEl.style.display = 'none';
+    }
+  };
+  previewImage.onerror = () => {
+    previewEl.innerHTML = `<p style="text-align:center; padding-top: 50%;">Fejl ved indlæsning af billede. Tjek at filstierne er korrekte.</p>`;
+  };
+}
+
+imageUploadEl.addEventListener('change', (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      state.overlayImage = e.target.result;
+      state.overlayScale = 100;
+      state.overlayOffsetX = 0;
+      state.overlayOffsetY = 0;
+      zoomSlider.value = 100;
+      panXSlider.value = 0;
+      panYSlider.value = 0;
+      renderPreview();
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+nameEl.addEventListener('input', e => { state.name=e.target.value; renderPreview(); });
+titleEl.addEventListener('input', e => { state.title=e.target.value; renderPreview(); });
+tmplBtns.forEach(btn=>btn.addEventListener('click', ()=>{
+  state.template=btn.dataset.template;
+  setActiveTemplateButton();
+  renderPreview();
+}));
+
+zoomSlider.addEventListener('input', (e) => {
+  state.overlayScale = parseFloat(e.target.value);
+  renderPreview();
+});
+
+panXSlider.addEventListener('input', (e) => {
+  state.overlayOffsetX = parseFloat(e.target.value);
+  renderPreview();
+});
+
+panYSlider.addEventListener('input', (e) => {
+  state.overlayOffsetY = parseFloat(e.target.value);
+  renderPreview();
+});
+
+downloadBtn.addEventListener('click', async ()=>{
+  const canvas=document.getElementById('c');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width=1200,H=canvas.height=1500;
+  
+  if (!canvas || !ctx) {
+    console.error("Canvas element or context not found.");
+    alert("En fejl opstod. Kan ikke finde canvas-elementet.");
+    return;
+  }
+
+  ctx.clearRect(0, 0, W, H);
+  
+  const img=new Image();
+  img.crossOrigin = "anonymous";
+  img.src = templateLinks[state.template];
+  
+  try {
+    await new Promise((res, rej) => {
+      img.onload = () => res();
+      img.onerror = () => rej(new Error(`Kunne ikke indlæse baggrundsbillede: ${img.src}`));
+    });
+    ctx.drawImage(img, 0, 0, W, H);
+  } catch (error) {
+    console.error("Fejl ved indlæsning af baggrundsbillede. Fejl: ", error);
+    alert("Fejl ved indlæsning af baggrundsbillede. Tjek at filstierne er korrekte.");
+    return;
+  }
+  
+  if (state.overlayImage) {
+    const overlayImg = new Image();
+    overlayImg.crossOrigin = "anonymous";
+    overlayImg.src = state.overlayImage;
+
+    try {
+      await new Promise((res, rej) => {
+        overlayImg.onload = () => res();
+        overlayImg.onerror = () => rej(new Error(`Kunne ikke indlæse overlay billede: ${overlayImg.src}`));
+      });
+
+      const pos = downloadOverlayPositions[state.template]; 
+      const radius = pos.borderRadius;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(pos.left + radius, pos.top);
+      ctx.lineTo(pos.left + pos.width - radius, pos.top);
+      ctx.quadraticCurveTo(pos.left + pos.width, pos.top, pos.left + pos.width, pos.top + radius);
+      ctx.lineTo(pos.left + pos.width, pos.top + pos.height - radius);
+      ctx.quadraticCurveTo(pos.left + pos.width, pos.top + pos.height, pos.left + pos.width - radius, pos.top + pos.height);
+      ctx.lineTo(pos.left + radius, pos.top + pos.height);
+      ctx.quadraticCurveTo(pos.left, pos.top + pos.height, pos.left, pos.top + pos.height - radius);
+      ctx.lineTo(pos.left, pos.top + radius);
+      ctx.quadraticCurveTo(pos.left, pos.top, pos.left + radius, pos.top);
+      ctx.closePath();
+      ctx.clip();
+      
+      const originalWidth = overlayImg.naturalWidth;
+      const originalHeight = overlayImg.naturalHeight;
+      const aspectRatio = originalWidth / originalHeight;
+
+      let drawWidth, drawHeight;
+      if (pos.width / pos.height > aspectRatio) {
+        drawHeight = pos.height;
+        drawWidth = pos.height * aspectRatio;
+      } else {
+        drawWidth = pos.width;
+        drawHeight = pos.width / aspectRatio;
+      }
+
+      const scaleFactor = state.overlayScale / 100;
+      drawWidth *= scaleFactor;
+      drawHeight *= scaleFactor;
+      
+      const panX = state.overlayOffsetX / 100;
+      const panY = state.overlayOffsetY / 100;
+
+      let finalX = pos.left + (pos.width - drawWidth) / 2 + (pos.width * panX);
+      let finalY = pos.top + (pos.height - drawHeight) / 2 + (pos.height * panY);
+
+      ctx.drawImage(overlayImg, finalX, finalY, drawWidth, drawHeight);
+      ctx.restore();
+
+    } catch (error) {
+      console.error("Fejl ved indlæsning af overlay billede til download. Fejl: ", error);
+      alert("Fejl ved indlæsning af overlay billede til download. Tjek at filstien er korrekt.");
+      return;
+    }
+  }
+
+  ctx.fillStyle="#ffffff";
+  ctx.textAlign="left";
+  const fontFamily = 'Montserrat';
+  const currentTextPos = textDownloadPositions[state.template];
+  const textMarginX = W * currentTextPos.left;
+  const textTopY = H * currentTextPos.top;
+
+  const nameSize = 65;
+  const titleSize = 48;
+  
+  let currentY = textTopY;
+  
+  if (state.name) {
+    ctx.font = `400 ${nameSize}px ${fontFamily}`;
+    ctx.fillText(state.name, textMarginX, currentY + nameSize * 0.8);
+    currentY += nameSize + 20;
+  }
+  
+  if (state.title) {
+    ctx.font = `400 ${titleSize}px ${fontFamily}`;
+    ctx.fillText(state.title, textMarginX, currentY + titleSize * 0.8);
+  }
+  
+  const link=document.createElement('a');
+  link.href=canvas.toDataURL("image/png");
+  link.download=`technomania-2025-${state.template}-${state.name||'kit'}.png`;
+  link.click();
+});
+
+renderPreview();
+</script>
+</body>
+</html>
